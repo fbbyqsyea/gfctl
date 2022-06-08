@@ -6,14 +6,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type {{.ApiName}}Api struct {
+type {{.VarName}}Api struct {
 	*Api
 	Svc *service.Service
 }
 
-func New{{.ApiName}}Api() *{{.ApiName}}Api {
-	svc := service.New{{.ApiName}}Service()
-	return &{{.ApiName}}Api{
+func New{{.VarName}}Api() *{{.VarName}}Api {
+	svc := service.New{{.VarName}}Service()
+	return &{{.VarName}}Api{
 		Api: NewApi(svc),
 		Svc: svc,
 	}
@@ -25,12 +25,12 @@ func New{{.ApiName}}Api() *{{.ApiName}}Api {
 // @Description 用于新增{{.Comment}}信息
 // @Tags {{.Comment}}相关
 // @Produce json
-// @param object body contexts.{{.ApiName}}InsertRequest true "{{.Comment}}信息"
+// @param object body contexts.{{.VarName}}InsertRequest true "{{.Comment}}信息"
 // @param Authorization header string true "授权令牌"
 // @Response 200 {object} contexts.RESPONSE{data=uint} "新增的{{.Comment}}id"
-// @Router /api/{{.ApiName}}/insert [post]
-{{end}}func (a *{{.ApiName}}Api) Insert(c *gin.Context) {
-	a.Api.Insert(c, &contexts.{{.ApiName}}InsertRequest{})
+// @Router /api/{{.Name}}/insert [post]
+{{end}}func (a *{{.VarName}}Api) Insert(c *gin.Context) {
+	a.Api.Insert(c, &contexts.{{.VarName}}InsertRequest{})
 }
 {{if .IsUseSwagger}}
 // 更新{{.Comment}}信息
@@ -39,12 +39,12 @@ func New{{.ApiName}}Api() *{{.ApiName}}Api {
 // @Description 用于更新{{.Comment}}信息
 // @Tags {{.Comment}}相关
 // @Produce json
-// @param object body contexts.{{.ApiName}}UpdateRequest true "{{.Comment}}信息"
+// @param object body contexts.{{.VarName}}UpdateRequest true "{{.Comment}}信息"
 // @param Authorization header string true "授权令牌"
 // @Response 200 {object} contexts.RESPONSE{data=uint} "更新影响行数"
-// @Router /api/{{.ApiName}}/update [post]
-{{end}}func (a *{{.ApiName}}Api) Update(c *gin.Context) {
-	a.Api.Update(c, &contexts.{{.ApiName}}UpdateRequest{})
+// @Router /api/{{.Name}}/update [post]
+{{end}}func (a *{{.VarName}}Api) Update(c *gin.Context) {
+	a.Api.Update(c, &contexts.{{.VarName}}UpdateRequest{})
 }
 {{if .IsUseSwagger}}
 // 更新{{.Comment}}状态信息
@@ -56,8 +56,8 @@ func New{{.ApiName}}Api() *{{.ApiName}}Api {
 // @param object body contexts.StatusRequest true "状态信息"
 // @param Authorization header string true "授权令牌"
 // @Response 200 {object} contexts.RESPONSE{data=uint} "更新影响行数"
-// @Router /api/{{.ApiName}}/status [post]
-{{end}}func (a *{{.ApiName}}Api) Status(c *gin.Context) {
+// @Router /api/{{.Name}}/status [post]
+{{end}}func (a *{{.VarName}}Api) Status(c *gin.Context) {
 	a.Api.Status(c, &contexts.StatusRequest{})
 }
 {{if .IsUseSwagger}}
@@ -70,8 +70,8 @@ func New{{.ApiName}}Api() *{{.ApiName}}Api {
 // @param object body contexts.RemoveRequest true "{{.Comment}}信息"
 // @param Authorization header string true "授权令牌"
 // @Response 200 {object} contexts.RESPONSE{data=uint} "删除影响行数"
-// @Router /api/{{.ApiName}}/remove [post]
-{{end}}func (a *{{.ApiName}}Api) Remove(c *gin.Context) {
+// @Router /api/{{.Name}}/remove [post]
+{{end}}func (a *{{.VarName}}Api) Remove(c *gin.Context) {
 	a.Api.Remove(c, &contexts.RemoveRequest{})
 }
 {{if .IsUseSwagger}}
@@ -84,8 +84,8 @@ func New{{.ApiName}}Api() *{{.ApiName}}Api {
 // @param object body contexts.RemovesRequest true "{{.Comment}}信息"
 // @param Authorization header string true "授权令牌"
 // @Response 200 {object} contexts.RESPONSE{data=uint} "删除影响行数"
-// @Router /api/{{.ApiName}}/removes [post]
-{{end}}func (a *{{.ApiName}}Api) Removes(c *gin.Context) {
+// @Router /api/{{.Name}}/removes [post]
+{{end}}func (a *{{.VarName}}Api) Removes(c *gin.Context) {
 	a.Api.Removes(c, &contexts.RemovesRequest{})
 }
 {{if .IsUseSwagger}}
@@ -97,10 +97,10 @@ func New{{.ApiName}}Api() *{{.ApiName}}Api {
 // @Produce json
 // @param id query uint true "{{.Comment}}ID"
 // @param Authorization header string true "授权令牌"
-// @Response 200 {object} contexts.RESPONSE{data=contexts.{{.ApiName}}Data}
-// @Router /api/{{.ApiName}}/get [get]
-{{end}}func (a *{{.ApiName}}Api) Get(c *gin.Context) {
-	a.Api.Get(c, &contexts.GetRequest{}, &contexts.{{.ApiName}}Data{}, false)
+// @Response 200 {object} contexts.RESPONSE{data=contexts.{{.VarName}}Data}
+// @Router /api/{{.Name}}/get [get]
+{{end}}func (a *{{.VarName}}Api) Get(c *gin.Context) {
+	a.Api.Get(c, &contexts.GetRequest{}, &contexts.{{.VarName}}Data{}, false)
 }
 {{if .IsUseSwagger}}
 // 获取{{.Comment}}列表
@@ -114,9 +114,9 @@ func New{{.ApiName}}Api() *{{.ApiName}}Api {
 // @param page query uint64 false "页数 默认:1"
 // @param limit query uint64 false "页数量 默认:20"
 // @param Authorization header string true "授权令牌"
-// @Response 200 {object} contexts.RESPONSE{data=[]contexts.{{.ApiName}}Data{}}
-// @Router /api/{{.ApiName}}/list [get]
+// @Response 200 {object} contexts.RESPONSE{data=[]contexts.{{.VarName}}Data{}}
+// @Router /api/{{.Name}}/list [get]
 {{end}}
-func (a *{{.ApiName}}Api) List(c *gin.Context) {
-	a.Api.List(c, &contexts.{{.ApiName}}ListRequest{}, &[]contexts.{{.ApiName}}Data{}, false)
+func (a *{{.VarName}}Api) List(c *gin.Context) {
+	a.Api.List(c, &contexts.{{.VarName}}ListRequest{}, &[]contexts.{{.VarName}}Data{}, false)
 }
